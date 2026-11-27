@@ -217,6 +217,21 @@ body {
   clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
 }
 
+/* Ски-пасс: вырезы по бокам на линии отрыва и перфорация */
+.ticket {
+  --cut: 14px;
+  --cut-y: calc(100% - 132px);
+  mask:
+    radial-gradient(circle var(--cut) at 0 var(--cut-y), #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--cut) at 100% var(--cut-y), #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.ticket-cut {
+  height: 2px;
+  margin-inline: -4px;
+  background-image: linear-gradient(90deg, rgb(0 0 0 / 0.35) 50%, transparent 50%);
+  background-size: 12px 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-photo, .hero-photo img, .hero-block, .hero-line > span { animation: none; }

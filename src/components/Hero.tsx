@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { ArrowDownRight, ArrowRight, Snowflake, Sparkles } from "lucide-react";
-import { RESORTS } from "@/lib/data";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
+import { PickerButton } from "./PickerButton";
 
 const LINES = ["Без страха.", "С инструктором.", "С улыбкой."];
 
 export function Hero() {
-  const ticker = [...RESORTS, ...RESORTS, ...RESORTS, ...RESORTS];
-
   return (
     <section id="top" className="relative overflow-hidden">
       {/* Фото: справа на десктопе, сверху на мобильном. Открывается диагональным «карвом» */}
@@ -29,7 +27,7 @@ export function Hero() {
         </p>
       </div>
 
-      <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-end lg:px-10 lg:pb-8 lg:pt-24">
+      <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-end lg:px-10 lg:pb-12 lg:pt-24">
         <div className="-mt-24 lg:mt-0">
           <h1 className="hero-block display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(31px,5.4vw,80px)] text-black sm:px-8 sm:py-6">
             {LINES.map((l, i) => (
@@ -50,30 +48,25 @@ export function Hero() {
           <div className="hero-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: "0.9s" }}>
             <a
               href="#booking"
+              data-cta="hero"
               className="press group inline-flex items-center gap-2 rounded-full bg-yellow px-7 py-4 font-extrabold text-black hover:bg-text"
             >
               Записаться на урок
               <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-            <a
-              href="#picker"
-              className="press inline-flex items-center gap-2 rounded-full border border-ice/50 px-7 py-4 font-bold text-ice hover:bg-ice hover:text-black"
-            >
-              <Sparkles size={18} />
-              Подобрать урок за 30 секунд
-            </a>
+            <PickerButton className="press inline-flex items-center gap-2 rounded-full border border-ice/50 px-7 py-4 font-bold text-ice hover:bg-ice hover:text-black" />
           </div>
         </div>
 
         {/* Сразу видно: групповые и индивидуальные */}
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:mt-10 lg:max-w-[860px]">
+        <div className="mt-12 grid gap-3 pb-12 sm:grid-cols-2 lg:mt-10 lg:max-w-[860px] lg:pb-0">
           {[
-            { k: "Индивидуально", v: "от 45 000 ₸", d: "Только вы и инструктор · 1,5 ч — полный день", c: "var(--yellow)", t: "text-yellow" },
-            { k: "В группе", v: "40 000 ₸", u: "/чел.", d: "2–5 человек · 2 часа на склоне", c: "var(--ice)", t: "text-ice" },
+            { id: "individual", k: "Индивидуально", v: "от 45 000 ₸", d: "Только вы и инструктор · 1,5 ч — полный день", c: "var(--yellow)", t: "text-yellow" },
+            { id: "group", k: "В группе", v: "40 000 ₸", u: "/чел.", d: "2–5 человек · 2 часа на склоне", c: "var(--ice)", t: "text-ice" },
           ].map((x, i) => (
             <a
               key={x.k}
-              href="#lessons"
+              href={`#book-${x.id}`}
               style={{ ["--sweep" as string]: x.c, animationDelay: `${1 + i * 0.08}s` }}
               className="hero-rise sweep group relative flex items-end justify-between gap-4 rounded-2xl border border-line bg-surface p-5 hover:border-transparent hover:text-black sm:p-6"
             >
@@ -93,16 +86,6 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative mt-12 overflow-hidden border-y border-line bg-bg py-3 lg:mt-0">
-        <div className="ticker flex w-max gap-10 whitespace-nowrap">
-          {ticker.map((r, i) => (
-            <span key={i} className="eyebrow flex items-center gap-10 text-muted">
-              {r.name}
-              <Snowflake size={12} className="text-yellow" />
-            </span>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

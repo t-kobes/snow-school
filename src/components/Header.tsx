@@ -7,9 +7,8 @@ import { Logo } from "./Logo";
 
 const NAV = [
   { href: "#lessons", label: "Уроки" },
-  { href: "#picker", label: "Подбор" },
-  { href: "#prices", label: "Цены" },
-  { href: "#resorts", label: "Курорты" },
+  { href: "#why", label: "Безопасность" },
+  { href: "#booking", label: "Запись" },
   { href: "#faq", label: "Вопросы" },
 ];
 
