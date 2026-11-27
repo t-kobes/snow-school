@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Snow School — школа сноуборда и горных лыж в Алматы
 
-## Getting Started
+Сайт для Almaty Snowboard School, сделан на хакатоне DC HACK 2026 (задача 2 — SNOW SCHOOL).
 
-First, run the development server:
+**Прод:** https://snow-school-almaty.vercel.app
+
+## Идея
+
+Главная задача — чтобы человек поверил в поездку: на склоне безопасно, рядом инструктор, а впереди радость, а не страх. Поэтому на сайте живые лица вместо стоковой «драмы», а групповые и индивидуальные уроки видны с первого экрана.
+
+## Что умеет
+
+- **Первый экран** — сразу два формата: индивидуально от 45 000 ₸ и в группе 40 000 ₸ с человека.
+- **AI-подбор урока** — 4 вопроса (кто катается, опыт, на чём, что важнее), Gemini подбирает формат, длительность и курорт. Цены считаются только по реальному прайсу школы; если модель недоступна, срабатывает подбор по правилам.
+- **Калькулятор стоимости** по прайсу школы на 20.11.2026.
+- **Запись** — заявка сохраняется в Supabase, можно продублировать в WhatsApp.
+- **Панель заявок** `/admin?key=…` — список, статусы «новая → подтверждена → проведена», ответ клиенту в WhatsApp в один клик.
+- Блоки «Здесь не страшно», «Первый день по шагам», 4 курорта, галерея, частые вопросы.
+- Адаптивная вёрстка, Open Graph, разметка schema.org.
+
+## Стек
+
+Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS 4 · Supabase (Postgres + RLS) · Gemini API · Vercel
+
+## Запуск
 
 ```bash
+npm install
+cp .env.example .env.local   # заполнить ключи
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Переменные окружения:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Переменная | Зачем |
+|---|---|
+| `GEMINI_API_KEY` | AI-подбор урока |
+| `GEMINI_MODELS` | необязательно, список моделей через запятую |
+| `SUPABASE_URL` | проект Supabase |
+| `SUPABASE_SECRET_KEY` | серверный ключ, в браузер не уходит |
+| `ADMIN_KEY` | доступ к `/admin` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Таблица заявок — `supabase/migrations/20261127060000_bookings.sql`.
 
-## Learn More
+## Фото
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Фотографии реальных людей (Unsplash и материалы Kazakhstan Travel / Almaty Snowboard School), без сгенерированных изображений.

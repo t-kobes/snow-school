@@ -42,3 +42,5 @@ next-env.d.ts
 
 # supabase cli
 supabase/.temp
+!.env.example
+AGENTS.md
