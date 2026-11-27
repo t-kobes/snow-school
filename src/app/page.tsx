@@ -6,7 +6,6 @@ import { Picker } from "@/components/Picker";
 import { Marquee } from "@/components/Marquee";
 import { Pricing } from "@/components/Pricing";
 import { RevealObserver } from "@/components/Reveal";
-import { SnowRider } from "@/components/SnowRider";
 import { Faq, FirstDay, Footer, Gallery, Partner, Resorts, Safety } from "@/components/Sections";
 
 export default function Home() {
@@ -29,7 +28,6 @@ export default function Home() {
       </main>
       <Footer />
       <RevealObserver />
-      <SnowRider />
     </>
   );
 }
