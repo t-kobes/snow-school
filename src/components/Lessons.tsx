@@ -6,12 +6,13 @@ import { tenge, type FormatId } from "@/lib/data";
 import { prefillBooking } from "@/lib/prefill";
 import { Holo } from "./Holo";
 
-const CARDS: { id: FormatId; title: string; price: string; unit?: string; facts: string[]; photo: string; alt: string; accent: string }[] = [
+const CARDS: { id: FormatId; title: string; lead: string; price: string; unit?: string; facts: string[]; photo: string; alt: string; accent: string }[] = [
   {
     id: "individual",
     title: "Индивидуально",
+    lead: "Только вы и инструктор",
     price: `от ${tenge(45000)}`,
-    facts: ["Только вы и инструктор", "От 1,5 часа до полного дня", "Любой уровень"],
+    facts: ["1,5 ч — полный день", "Любой уровень"],
     photo: "/photos/individual-kid.jpg",
     alt: "Инструктор держит ученицу за руку на склоне",
     accent: "var(--yellow)",
@@ -19,9 +20,10 @@ const CARDS: { id: FormatId; title: string; price: string; unit?: string; facts:
   {
     id: "group",
     title: "В группе",
+    lead: "2–5 человек и один инструктор",
     price: tenge(40000),
     unit: "/чел.",
-    facts: ["2–5 человек, один инструктор", "Урок 2 часа", "Веселее и выгоднее"],
+    facts: ["Урок 2 часа", "Веселее и выгоднее"],
     photo: "/photos/group-forest.jpg",
     alt: "Компания друзей с лыжами и сноубордами на склоне",
     accent: "var(--ice)",
@@ -65,10 +67,16 @@ export function Lessons() {
             </Holo>
             <div className="absolute inset-x-0 bottom-0 p-6 pr-24 sm:p-8 sm:pr-28">
               <div>
-                <p className="display text-[clamp(32px,5vw,56px)]">{c.title}</p>
-                <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text/85">
+                <p className="display text-[clamp(30px,3.6vw,46px)] leading-[0.95] [text-shadow:0_2px_24px_rgb(0_0_0/0.35)]">{c.title}</p>
+                <p className="mt-3 text-lg font-semibold leading-snug text-text sm:text-xl">{c.lead}</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
                   {c.facts.map((f) => (
-                    <li key={f}>{f}</li>
+                    <li
+                      key={f}
+                      className="rounded-full border border-white/15 bg-black/35 px-3.5 py-1.5 text-sm font-semibold text-text/90 backdrop-blur-md"
+                    >
+                      {f}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -80,14 +88,19 @@ export function Lessons() {
         ))}
       </div>
 
-      <p className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
-        Ещё:
+      <div className="mt-6 flex flex-wrap items-center gap-2">
+        <span className="mr-2 text-sm font-semibold text-muted">Ещё форматы</span>
         {EXTRA.map((e) => (
-          <button key={e.id} type="button" onClick={() => prefillBooking({ format: e.id })} className="font-bold text-text underline decoration-line underline-offset-4 hover:decoration-yellow">
+          <button
+            key={e.id}
+            type="button"
+            onClick={() => prefillBooking({ format: e.id })}
+            className="press rounded-full border border-line px-4 py-2 text-sm font-semibold text-text/90 hover:border-yellow hover:text-yellow"
+          >
             {e.label}
           </button>
         ))}
-      </p>
+      </div>
     </section>
   );
 }
