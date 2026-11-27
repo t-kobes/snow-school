@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, Check, Loader2, MessageCircle, Minus, Plus, Sparkles } from "lucide-react";
+import Image from "next/image";
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import { FORMATS, LEVELS, SPORTS, WHATSAPP, formatById, tenge, type FormatId, type Level, type Sport } from "@/lib/data";
@@ -149,16 +150,21 @@ export function BookingFlow() {
   );
 
   return (
-    <section id="booking" className="border-t border-line">
-      <div className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
+    <section id="booking" data-tint="#121b2a" className="relative overflow-hidden">
+      {/* Пик страницы: под записью проявляется настоящий склон школы на Шымбулаке */}
+      <div aria-hidden className="absolute inset-0">
+        <Image src="/photos/shymbulak-school.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_35%] opacity-45" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--bg)_0%,color-mix(in_srgb,var(--bg)_60%,transparent)_35%,color-mix(in_srgb,var(--bg)_60%,transparent)_65%,var(--bg)_100%)]" />
+      </div>
+      <div className="relative mx-auto max-w-[1320px] px-4 py-28 sm:px-6 lg:px-10 lg:py-40">
         <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
           Запишитесь
           <br />
           за минуту
         </h2>
 
-        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
-          <div className="rounded-3xl border border-line bg-surface p-5 sm:p-8">
+        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-0">
+          <div className="relative z-10 rounded-3xl border border-white/10 bg-surface/85 p-5 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] backdrop-blur-xl sm:p-8 lg:pr-16">
             {status === "done" ? (
               <div className="swap-in py-6">
                 <Check size={44} className="text-yellow" />
@@ -396,8 +402,8 @@ function SkiPass(p: {
   ];
 
   return (
-    <aside aria-label="Ваш ски-пасс" className="lg:sticky lg:top-24">
-      <div className="ticket relative rounded-[28px] bg-yellow p-6 text-black shadow-[0_30px_80px_-20px_rgb(241_237_14/0.25)] sm:p-7">
+    <aside aria-label="Ваш ски-пасс" className="relative z-20 drop-shadow-[0_30px_40px_rgb(0_0_0/0.55)] lg:sticky lg:top-24 lg:-ml-8 lg:mt-20">
+      <div className="ticket relative rounded-[28px] bg-yellow p-6 text-black transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-8 lg:-rotate-3 lg:hover:rotate-0">
         <div className="flex items-start justify-between">
           <p className="display text-xl">
             Snow<span className="opacity-40">/</span>School
@@ -405,7 +411,7 @@ function SkiPass(p: {
           <p className="rounded-full border border-black/80 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em]">Ski pass</p>
         </div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-black/55">{p.name ? `На имя: ${p.name}` : "Урок с инструктором"}</p>
-        <p key={p.format} className="display swap-in mt-1 text-4xl">
+        <p key={p.format} className="display swap-in mt-1 text-[clamp(32px,3.4vw,48px)]">
           {p.format}
         </p>
         <dl className="mt-5 space-y-2 text-sm">
@@ -422,7 +428,7 @@ function SkiPass(p: {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-black/55">Итого</p>
-            <p className="display mt-1 text-4xl tabular-nums">{p.price === null ? "По запросу" : tenge(p.price)}</p>
+            <p className="display mt-1 text-[clamp(36px,3.6vw,52px)] tabular-nums">{p.price === null ? "По запросу" : tenge(p.price)}</p>
             <p className="mt-1 text-xs text-black/55">ски-пасс курорта и прокат — отдельно</p>
           </div>
           <div className="grid size-[88px] shrink-0 place-items-center rounded-xl bg-black/[0.06] p-2">

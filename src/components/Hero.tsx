@@ -1,91 +1,62 @@
 import Image from "next/image";
-import { ArrowDownRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PickerButton } from "./PickerButton";
+import { QuickBook } from "./QuickBook";
 
 const LINES = ["Без страха.", "С инструктором.", "С улыбкой."];
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      {/* Фото: справа на десктопе, сверху на мобильном. Открывается диагональным «карвом» */}
-      <div className="hero-photo relative h-[62svh] w-full overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[58%]">
+    <section id="top" data-tint="#0b0b0c" className="relative">
+      {/* Фото на всю ширину, края растворяются в фоне */}
+      <div className="hero-photo absolute inset-x-0 top-0 h-[62svh] overflow-hidden lg:left-[22%] lg:h-[100svh]">
         <Image
           src="/photos/hero-smile.jpg"
           alt="Девушка в шлеме и маске улыбается на склоне с лыжами на плече"
           fill
           priority
-          sizes="(min-width: 1024px) 60vw, 100vw"
-          className="object-cover object-[65%_30%]"
+          sizes="100vw"
+          className="object-cover object-[65%_25%] lg:object-[80%_25%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/10 to-transparent lg:bg-gradient-to-r lg:from-bg lg:via-bg/20 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-bg via-bg/70 to-transparent" />
+      </div>
+
+      <div className="relative mx-auto flex max-w-[1320px] flex-col px-4 pt-[50svh] sm:px-6 lg:min-h-[100svh] lg:justify-end lg:px-10 lg:pt-24">
         <p
-          className="hero-rise absolute bottom-6 right-4 flex items-center gap-2 rounded-full bg-bg/70 px-4 py-2 text-xs font-bold backdrop-blur-md sm:right-6 lg:bottom-auto lg:right-10 lg:top-24"
+          className="hero-rise mb-6 hidden w-fit items-center sm:inline-flex gap-2 rounded-full bg-bg/60 px-4 py-2 text-xs font-bold backdrop-blur-md"
           style={{ animationDelay: "1.1s" }}
         >
           <span className="pulse-dot size-1.5 rounded-full bg-ice" />
-          Сезон 2026/27 открыт
+          Сезон 2026/27 открыт · Шымбулак, Ак-Булак, Ой-Карагай, Лесная Сказка
         </p>
-      </div>
 
-      <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-end lg:px-10 lg:pb-12 lg:pt-24">
-        <div className="-mt-24 lg:mt-0">
-          <h1 className="hero-block display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(31px,5.4vw,80px)] text-black sm:px-8 sm:py-6">
-            {LINES.map((l, i) => (
-              <span key={l} className="hero-line">
-                <span style={{ animationDelay: `${0.45 + i * 0.09}s` }}>{l}</span>
-              </span>
-            ))}
-          </h1>
+        <h1 className="hero-block display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(31px,4.5vw,68px)] text-black sm:px-8 sm:py-6">
+          {LINES.map((l, i) => (
+            <span key={l} className="hero-line">
+              <span style={{ animationDelay: `${0.45 + i * 0.09}s` }}>{l}</span>
+            </span>
+          ))}
+        </h1>
 
-          <p
-            className="hero-rise mt-7 max-w-[520px] text-base leading-relaxed text-text/85 sm:text-lg"
-            style={{ animationDelay: "0.8s" }}
-          >
-            Уроки сноуборда и горных лыж на Шымбулаке и ещё трёх курортах Алматы. Сертифицированные инструкторы,
-            группы до 5 человек, дети — с 5 лет.
+        <div className="hero-rise mt-6 flex flex-col gap-6 sm:flex-row sm:items-center" style={{ animationDelay: "0.85s" }}>
+          <p className="hidden max-w-[460px] text-base leading-relaxed text-text/90 sm:block sm:text-lg">
+            Уроки сноуборда и горных лыж в Алматы с 2005 года. Группы до 5 человек, дети — с 5 лет.
           </p>
-
-          <div className="hero-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: "0.9s" }}>
-            <a
-              href="#booking"
-              data-cta="hero"
-              className="press group inline-flex items-center gap-2 rounded-full bg-yellow px-7 py-4 font-extrabold text-black hover:bg-text"
-            >
-              Записаться на урок
+          <div className="flex flex-wrap gap-3">
+            <a href="#booking" className="press group inline-flex items-center gap-2 rounded-full bg-text px-5 py-3 sm:px-6 sm:py-3.5 font-extrabold text-black hover:bg-yellow">
+              Все форматы
               <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-            <PickerButton className="press inline-flex items-center gap-2 rounded-full border border-ice/50 px-7 py-4 font-bold text-ice hover:bg-ice hover:text-black" />
+            <PickerButton className="press inline-flex items-center gap-2 rounded-full border border-ice/60 bg-bg/40 px-5 py-3 sm:px-6 sm:py-3.5 font-bold text-ice backdrop-blur-md hover:bg-ice hover:text-black" />
           </div>
         </div>
 
-        {/* Сразу видно: групповые и индивидуальные */}
-        <div className="mt-12 grid gap-3 pb-12 sm:grid-cols-2 lg:mt-10 lg:max-w-[860px] lg:pb-0">
-          {[
-            { id: "individual", k: "Индивидуально", v: "от 45 000 ₸", d: "Только вы и инструктор · 1,5 ч — полный день", c: "var(--yellow)", t: "text-yellow" },
-            { id: "group", k: "В группе", v: "40 000 ₸", u: "/чел.", d: "2–5 человек · 2 часа на склоне", c: "var(--ice)", t: "text-ice" },
-          ].map((x, i) => (
-            <a
-              key={x.k}
-              href={`#book-${x.id}`}
-              style={{ ["--sweep" as string]: x.c, animationDelay: `${1 + i * 0.08}s` }}
-              className="hero-rise sweep group relative flex items-end justify-between gap-4 rounded-2xl border border-line bg-surface p-5 hover:border-transparent hover:text-black sm:p-6"
-            >
-              <div>
-                <p className="text-sm font-bold text-muted transition-colors group-hover:text-black/60">{x.k}</p>
-                <p className="display mt-2 text-3xl tabular-nums sm:text-4xl">
-                  {x.v}
-                  {x.u && <span className="ml-1 text-base not-italic opacity-60">{x.u}</span>}
-                </p>
-                <p className="mt-2 text-sm text-text/70 transition-colors group-hover:text-black/70">{x.d}</p>
-              </div>
-              <ArrowDownRight
-                className={`shrink-0 ${x.t} transition-all duration-300 group-hover:translate-x-1 group-hover:translate-y-1 group-hover:text-black`}
-              />
-            </a>
-          ))}
+        {/* Виджет лежит на стыке фото и следующей секции */}
+        <div className="hero-rise relative z-20 mt-10 translate-y-1/3 lg:max-w-[880px]" style={{ animationDelay: "1s" }}>
+          <QuickBook />
         </div>
       </div>
-
     </section>
   );
 }

@@ -35,43 +35,42 @@ const EXTRA: { id: FormatId; label: string }[] = [
 
 export function Lessons() {
   return (
-    <section id="lessons" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
+    <section id="lessons" data-tint="#0b0b0c" className="mx-auto max-w-[1320px] px-4 pb-24 pt-36 sm:px-6 lg:px-10 lg:pb-32 lg:pt-48">
       <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
         Как будете
         <br />
         учиться?
       </h2>
 
-      <div className="mt-12 grid gap-5 lg:grid-cols-2">
-        {CARDS.map((c) => (
+      <div className="mt-12 grid items-start gap-5 lg:grid-cols-2">
+        {CARDS.map((c, i) => (
           <button
             key={c.id}
             type="button"
             onClick={() => prefillBooking({ format: c.id, people: c.id === "group" ? 2 : 1 })}
-            style={{ ["--sweep" as string]: c.accent }}
-            className="sweep press group overflow-hidden rounded-3xl border border-line bg-surface text-left hover:border-transparent hover:text-black"
+            className={`press group relative aspect-[4/5] overflow-hidden rounded-3xl text-left sm:aspect-[16/12] ${i === 1 ? "lg:mt-16" : ""}`}
           >
-            <div className="relative aspect-[16/9] overflow-hidden">
-              <Image src={c.photo} alt={c.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-            </div>
-            <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6 sm:p-8">
+            <Image src={c.photo} alt={c.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/0" />
+            <span
+              style={{ background: c.accent }}
+              className="display absolute right-5 top-5 -rotate-3 rounded-2xl px-4 py-2.5 text-2xl tabular-nums text-black shadow-[0_12px_30px_-8px_rgb(0_0_0/0.6)] transition-transform duration-500 group-hover:rotate-0 sm:text-3xl"
+            >
+              {c.price}
+              {c.unit && <span className="ml-1 text-sm not-italic opacity-60">{c.unit}</span>}
+            </span>
+            <div className="absolute inset-x-0 bottom-0 p-6 pr-24 sm:p-8 sm:pr-28">
               <div>
-                <p className="display text-[clamp(32px,8vw,48px)]">{c.title}</p>
-                <ul className="mt-4 space-y-1 text-text/75 transition-colors group-hover:text-black/70">
+                <p className="display text-[clamp(32px,5vw,56px)]">{c.title}</p>
+                <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text/85">
                   {c.facts.map((f) => (
                     <li key={f}>{f}</li>
                   ))}
                 </ul>
               </div>
-              <div className="sm:text-right">
-                <p className="display whitespace-nowrap text-3xl tabular-nums">
-                  {c.price}
-                  {c.unit && <span className="ml-1 text-base not-italic opacity-60">{c.unit}</span>}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold">
-                  Выбрать <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
+              <span className="absolute bottom-6 right-6 grid size-14 place-items-center rounded-full bg-text text-black sm:bottom-8 sm:right-8 transition-colors duration-300 group-hover:bg-yellow">
+                <ArrowRight size={22} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+              </span>
             </div>
           </button>
         ))}

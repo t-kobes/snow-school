@@ -4,7 +4,7 @@ import { Logo } from "./Logo";
 
 export function Faq() {
   return (
-    <section id="faq" className="mx-auto grid border-t border-line max-w-[1320px] gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-32">
+    <section id="faq" data-tint="#0b0b0c" className="mx-auto grid max-w-[1320px] gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-32">
       <div className="reveal">
         <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
           Спрашивают
