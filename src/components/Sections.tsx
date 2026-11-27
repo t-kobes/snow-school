@@ -17,7 +17,7 @@ export function Safety() {
     <section id="safety" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div className="relative">
-          <div className="reveal-carve relative aspect-[4/5] overflow-hidden rounded-3xl">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
             <Image
               src="/photos/kids-lift.jpg"
               alt="Дети в шлемах улыбаются на кресельном подъёмнике"
@@ -44,13 +44,9 @@ export function Safety() {
               самостоятельного спуска.
             </p>
           </div>
-          <ul className="mt-10 divide-y divide-line border-y border-line">
-            {SAFETY.map(({ icon: Icon, t, d }, i) => (
-              <li
-                key={t}
-                style={{ ["--i" as string]: i }}
-                className="reveal group grid grid-cols-[auto_1fr] items-baseline gap-x-5 py-5"
-              >
+          <ul className="reveal mt-10 divide-y divide-line border-y border-line">
+            {SAFETY.map(({ icon: Icon, t, d }) => (
+              <li key={t} className="group grid grid-cols-[auto_1fr] items-baseline gap-x-5 py-5">
                 <Icon size={22} className="translate-y-1 text-yellow transition-transform duration-500 group-hover:-rotate-12" />
                 <div className="sm:grid sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-6">
                   <p className="text-lg font-extrabold leading-snug">{t}</p>
@@ -120,11 +116,10 @@ export function Resorts() {
       </div>
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {RESORTS.map((r, i) => (
+        {RESORTS.map((r) => (
           <article
             key={r.name}
-            style={{ ["--i" as string]: i }}
-            className="reveal-carve group relative aspect-[3/4] overflow-hidden rounded-3xl border border-line"
+            className="group relative aspect-[3/4] overflow-hidden rounded-3xl border border-line"
           >
             <Image
               src={r.photo}
@@ -169,11 +164,10 @@ export function Gallery() {
           </h2>
         </div>
         <div className="mt-12 grid auto-rows-[180px] grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4">
-          {GALLERY.map((g, i) => (
+          {GALLERY.map((g) => (
             <figure
               key={g.src}
-              style={{ ["--i" as string]: i }}
-              className={`reveal-carve group relative overflow-hidden rounded-2xl ${g.cls}`}
+              className={`group relative overflow-hidden rounded-2xl ${g.cls}`}
             >
               <Image
                 src={g.src}

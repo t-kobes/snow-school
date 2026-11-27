@@ -6,6 +6,7 @@ import { Picker } from "@/components/Picker";
 import { Marquee } from "@/components/Marquee";
 import { Pricing } from "@/components/Pricing";
 import { RevealObserver } from "@/components/Reveal";
+import { SnowRider } from "@/components/SnowRider";
 import { Faq, FirstDay, Footer, Gallery, Partner, Resorts, Safety } from "@/components/Sections";
 
 export default function Home() {
@@ -22,13 +23,13 @@ export default function Home() {
         <Pricing />
         <Resorts />
         <Gallery />
-        <Marquee top="Шымбулак · Ак-Булак · Ой-Карагай · Лесная Сказка ·" bottom="Первый спуск ждёт —" />
         <Faq />
         <Booking />
         <Partner />
       </main>
       <Footer />
       <RevealObserver />
+      <SnowRider />
     </>
   );
 }

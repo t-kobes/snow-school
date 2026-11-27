@@ -58,7 +58,7 @@ export function Lessons() {
       <div className="mt-12 grid gap-5 lg:grid-cols-2">
         {/* Индивидуально */}
         <article className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface">
-          <div className="reveal-carve relative aspect-[16/10] overflow-hidden">
+          <div className="relative aspect-[16/10] overflow-hidden">
             <Image
               key={PHOTOS[sport].individual}
               src={PHOTOS[sport].individual}
@@ -113,7 +113,7 @@ export function Lessons() {
 
         {/* Группа */}
         <article className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface">
-          <div className="reveal-carve relative aspect-[16/10] overflow-hidden">
+          <div className="relative aspect-[16/10] overflow-hidden">
             <Image
               key={PHOTOS[sport].group}
               src={PHOTOS[sport].group}
