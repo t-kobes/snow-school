@@ -181,10 +181,7 @@ export function Picker() {
             </div>
           ) : (
             <div className="swap-in">
-              <p className="inline-flex items-center gap-2 rounded-full bg-ice px-3 py-1.5 text-xs font-extrabold text-black">
-                <Sparkles size={14} /> {result.source === "ai" ? "Подобрано AI · Gemini" : "Подобрано по правилам школы"}
-              </p>
-              <h3 className="display mt-4 text-4xl sm:text-5xl">{result.title}</h3>
+              <h3 className="display text-4xl sm:text-5xl">{result.title}</h3>
               <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
                 <div className="bg-surface-2 px-4 py-3">
                   <p className="text-xs text-muted">Катание</p>
