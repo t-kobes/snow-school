@@ -1,7 +1,8 @@
 import { FORMATS, LEVELS, SPORTS, type FormatId, type Sport } from "@/lib/data";
 import { GOAL, WHO, pickByRules, priceFor, type PickInput, type PickResult } from "@/lib/pick";
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+// Запрос уходит параллельно в несколько моделей — берём первый успешный ответ
+const MODELS = (process.env.GEMINI_MODELS ?? "gemini-3.1-flash-lite,gemini-flash-lite-latest").split(",");
 
 const PRICE_LIST = FORMATS.map(
   (f) =>
@@ -57,8 +58,8 @@ export async function POST(req: Request) {
     input.sport === "unsure" ? "пока не знает" : SPORTS[input.sport]
   }; что важнее — ${GOAL[input.goal]}; человек — ${input.people}.`;
 
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+  const ask = async (model: string) => {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: "POST",
       headers: { "content-type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
@@ -66,11 +67,15 @@ export async function POST(req: Request) {
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         generationConfig: { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.6 },
       }),
-      signal: AbortSignal.timeout(12000),
+      signal: AbortSignal.timeout(10000),
     });
-    if (!res.ok) throw new Error(`Gemini ${res.status}`);
+    if (!res.ok) throw new Error(`Gemini ${model} ${res.status}`);
     const data = await res.json();
-    const ai = JSON.parse(data.candidates[0].content.parts[0].text) as Omit<PickResult, "price" | "source">;
+    return JSON.parse(data.candidates[0].content.parts[0].text) as Omit<PickResult, "price" | "source">;
+  };
+
+  try {
+    const ai = await Promise.any(MODELS.map(ask));
     const format = FORMATS.some((f) => f.id === ai.format) ? (ai.format as FormatId) : pickByRules(input).format;
     const people = format === "group" ? Math.min(5, Math.max(2, input.people)) : input.people;
     const result: PickResult = {
