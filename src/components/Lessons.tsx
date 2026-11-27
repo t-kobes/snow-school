@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { tenge, type FormatId } from "@/lib/data";
 import { prefillBooking } from "@/lib/prefill";
+import { Holo } from "./Holo";
 
 const CARDS: { id: FormatId; title: string; price: string; unit?: string; facts: string[]; photo: string; alt: string; accent: string }[] = [
   {
@@ -52,13 +53,16 @@ export function Lessons() {
           >
             <Image src={c.photo} alt={c.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/0" />
-            <span
-              style={{ background: c.accent }}
-              className="display absolute right-5 top-5 -rotate-3 rounded-2xl px-4 py-2.5 text-2xl tabular-nums text-black shadow-[0_12px_30px_-8px_rgb(0_0_0/0.6)] transition-transform duration-500 group-hover:rotate-0 sm:text-3xl"
-            >
-              {c.price}
-              {c.unit && <span className="ml-1 text-sm not-italic opacity-60">{c.unit}</span>}
-            </span>
+            <Holo className="absolute right-5 top-5 z-10" strength={1.6}>
+              <span
+                style={{ background: c.accent }}
+                className="display ticket-glint relative block -rotate-3 overflow-hidden rounded-2xl px-4 py-2.5 text-2xl tabular-nums text-black shadow-[0_12px_30px_-8px_rgb(0_0_0/0.6)] transition-transform duration-500 group-hover:rotate-0 sm:text-3xl"
+              >
+                <span aria-hidden className="ticket-sheen" />
+                {c.price}
+                {c.unit && <span className="ml-1 text-sm not-italic opacity-60">{c.unit}</span>}
+              </span>
+            </Holo>
             <div className="absolute inset-x-0 bottom-0 p-6 pr-24 sm:p-8 sm:pr-28">
               <div>
                 <p className="display text-[clamp(32px,5vw,56px)]">{c.title}</p>

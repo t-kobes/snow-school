@@ -182,6 +182,13 @@ body {
   transform: translateX(-120%);
   animation: glint 7s var(--ease-out) 2s infinite;
 }
+.hero-block.ticket-glint::after {
+  animation: glint-once 1.6s var(--ease-out) 1.4s both;
+}
+@keyframes glint-once {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
 @keyframes glint {
   0% { transform: translateX(-120%); }
   18%, 100% { transform: translateX(120%); }

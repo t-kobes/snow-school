@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { PickerButton } from "./PickerButton";
 import { HeroDepth } from "./HeroDepth";
+import { Holo } from "./Holo";
 import { QuickBook } from "./QuickBook";
 
 const LINES = ["Без страха.", "С инструктором.", "С улыбкой."];
@@ -36,13 +37,16 @@ export function Hero() {
           Сезон 2026/27 открыт · Шымбулак, Ак-Булак, Ой-Карагай, Лесная Сказка
         </p>
 
-        <h1 className="hero-block display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(31px,4.5vw,68px)] text-black sm:px-8 sm:py-6">
-          {LINES.map((l, i) => (
-            <span key={l} className="hero-line">
-              <span style={{ animationDelay: `${0.45 + i * 0.09}s` }}>{l}</span>
-            </span>
-          ))}
-        </h1>
+        <Holo className="relative z-10 w-fit" strength={0.6}>
+          <h1 className="hero-block ticket-glint display relative z-10 w-fit overflow-hidden bg-yellow px-5 py-5 text-[clamp(31px,4.5vw,68px)] text-black sm:px-8 sm:py-6">
+            <span aria-hidden className="ticket-sheen" />
+            {LINES.map((l, i) => (
+              <span key={l} className="hero-line">
+                <span style={{ animationDelay: `${0.45 + i * 0.09}s` }}>{l}</span>
+              </span>
+            ))}
+          </h1>
+        </Holo>
 
         <div className="hero-rise mt-6 flex flex-col gap-6 sm:flex-row sm:items-center" style={{ animationDelay: "0.85s" }}>
           <p className="hidden max-w-[460px] text-base leading-relaxed text-text/90 sm:block sm:text-lg">
