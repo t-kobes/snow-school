@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Loader2, MapPin, Minus, Plus, RotateCcw, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LEVELS, SPORTS, type Level, type Sport } from "@/lib/data";
 import { GOAL, WHO, type Goal, type PickInput, type PickResult, type Who } from "@/lib/pick";
 import { prefillBooking } from "@/lib/prefill";
@@ -40,6 +40,27 @@ function Choice<T extends string>({
 }
 
 const LEVEL_OPTIONS = Object.fromEntries(LEVELS.map((l) => [l.id, l.title])) as Record<Level, string>;
+
+const THINKING = ["Смотрим прайс школы…", "Выбираем склон под ваш уровень…", "Считаем стоимость…", "Готовим советы инструктора…"];
+
+function Thinking() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % THINKING.length), 1300);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div className="flex min-h-[420px] flex-col items-start justify-center">
+      <span className="grid size-16 place-items-center rounded-full bg-yellow text-black">
+        <Sparkles size={28} className="animate-pulse" />
+      </span>
+      <p className="display mt-8 text-4xl sm:text-5xl">Подбираем урок</p>
+      <p key={i} className="mt-4 text-lg text-ice">
+        {THINKING[i]}
+      </p>
+    </div>
+  );
+}
 const SPORT_OPTIONS = { ...SPORTS, unsure: "Пока не знаю" } as Record<Sport | "unsure", string>;
 
 export function Picker() {
@@ -113,7 +134,9 @@ export function Picker() {
           className="reveal px-4 py-12 sm:px-6 lg:py-16 lg:pl-12 lg:pr-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))]"
           aria-live="polite"
         >
-          {!result ? (
+          {loading ? (
+            <Thinking />
+          ) : !result ? (
             <div className="space-y-7">
               <Choice label="1. Кто будет кататься?" options={WHO} value={who} onChange={setWho} />
               <Choice label="2. Опыт" options={LEVEL_OPTIONS} value={level} onChange={setLevel} />
