@@ -388,6 +388,26 @@ function SkiPass(p: {
   name: string;
   qr: string;
 }) {
+  // билет наклоняется за курсором, по нему бежит отблеск, как по фольге
+  const tilt = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    el.classList.add("tilting");
+    el.style.setProperty("--ry", `${(x - 0.5) * 14}deg`);
+    el.style.setProperty("--rx", `${(0.5 - y) * 12}deg`);
+    el.style.setProperty("--gx", `${x * 100}%`);
+    el.style.setProperty("--gy", `${y * 100}%`);
+  };
+  const reset = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    el.classList.remove("tilting");
+    el.style.setProperty("--ry", "0deg");
+    el.style.setProperty("--rx", "0deg");
+  };
+
   const rows: [string, React.ReactNode][] = [
     ["Катание", p.sport],
     ["Урок", p.duration],
@@ -403,7 +423,9 @@ function SkiPass(p: {
 
   return (
     <aside aria-label="Ваш ски-пасс" className="relative z-20 drop-shadow-[0_30px_40px_rgb(0_0_0/0.55)] lg:sticky lg:top-24 lg:-ml-8 lg:mt-20">
-      <div className="ticket relative rounded-[28px] bg-yellow p-6 text-black transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-8 lg:-rotate-3 lg:hover:rotate-0">
+      <div onPointerMove={tilt} onPointerLeave={reset} className="ticket-holo lg:-rotate-3">
+      <div className="ticket ticket-glint relative overflow-hidden rounded-[28px] bg-yellow p-6 text-black sm:p-8">
+        <span aria-hidden className="ticket-sheen" />
         <div className="flex items-start justify-between">
           <p className="display text-xl">
             Snow<span className="opacity-40">/</span>School
@@ -440,6 +462,7 @@ function SkiPass(p: {
             )}
           </div>
         </div>
+      </div>
       </div>
     </aside>
   );

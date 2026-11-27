@@ -141,6 +141,52 @@ body {
   animation: rise 0.7s var(--ease-out) both;
 }
 
+/* Глубина первого экрана: --sy от прокрутки, --mx/--my от курсора */
+.parallax-photo {
+  transform: translate3d(calc(var(--mx, 0) * -14px), calc(var(--sy, 0) * 140px + var(--my, 0) * -10px), 0) scale(1.06);
+  will-change: transform;
+}
+
+/* Голографический ски-пасс */
+.ticket-holo {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.6s var(--ease-out);
+}
+.ticket-holo.tilting {
+  transition: transform 0.12s linear;
+}
+.ticket-sheen {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background:
+    radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgb(255 255 255 / 0.75), transparent 45%),
+    linear-gradient(115deg, rgb(127 211 247 / 0.55), rgb(255 150 220 / 0.45) 40%, rgb(255 255 255 / 0) 60%, rgb(127 211 247 / 0.5));
+  background-size: 100% 100%, 220% 220%;
+  background-position: 0 0, var(--gx, 50%) var(--gy, 50%);
+  mix-blend-mode: overlay;
+}
+.ticket-holo.tilting .ticket-sheen {
+  opacity: 1;
+}
+.ticket-glint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 48%, transparent 60%);
+  transform: translateX(-120%);
+  animation: glint 7s var(--ease-out) 2s infinite;
+}
+@keyframes glint {
+  0% { transform: translateX(-120%); }
+  18%, 100% { transform: translateX(120%); }
+}
+
 /* Появление при прокрутке. Без JS всё видно сразу */
 .js .reveal:not(.in) {
   opacity: 0;
@@ -250,7 +296,8 @@ body {
   }
   .reveal, .reveal-mask, .reveal-carve { transition: opacity 0.4s ease; clip-path: none; }
   .reveal-carve img, .js .reveal-carve:not(.in) img { transform: none; transition: none; }
-  .ticker, .pulse-dot { animation: none; }
+  .ticker, .pulse-dot, .ticket-glint::after { animation: none; }
+  .parallax-photo, .ticket-holo { transform: none; }
   .sweep::before { transition: none; }
 }
 
