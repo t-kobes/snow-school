@@ -54,16 +54,16 @@ export function Lessons() {
             <div className="relative aspect-[16/9] overflow-hidden">
               <Image src={c.photo} alt={c.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="flex items-end justify-between gap-6 p-6 sm:p-8">
+            <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6 sm:p-8">
               <div>
-                <p className="display text-4xl sm:text-5xl">{c.title}</p>
+                <p className="display text-[clamp(32px,8vw,48px)]">{c.title}</p>
                 <ul className="mt-4 space-y-1 text-text/75 transition-colors group-hover:text-black/70">
                   {c.facts.map((f) => (
                     <li key={f}>{f}</li>
                   ))}
                 </ul>
               </div>
-              <div className="text-right">
+              <div className="sm:text-right">
                 <p className="display whitespace-nowrap text-3xl tabular-nums">
                   {c.price}
                   {c.unit && <span className="ml-1 text-base not-italic opacity-60">{c.unit}</span>}
