@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 
+const SELECTOR = ".reveal:not(.in), .reveal-mask:not(.in), .reveal-carve:not(.in)";
+
 export function RevealObserver() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".reveal:not(.in)");
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -14,9 +15,9 @@ export function RevealObserver() {
           }
         }
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      { rootMargin: "0px 0px -12% 0px" },
     );
-    els.forEach((el) => io.observe(el));
+    document.querySelectorAll<HTMLElement>(SELECTOR).forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
   return null;

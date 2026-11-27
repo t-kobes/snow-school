@@ -82,8 +82,7 @@ export function Booking() {
     <section id="booking" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div className="reveal">
-          <p className="eyebrow text-yellow">Запись</p>
-          <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+          <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
             Ваш первый
             <br />
             спуск ждёт
@@ -114,7 +113,7 @@ export function Booking() {
           }`}
         >
           {status === "done" ? (
-            <div className="flex min-h-[420px] flex-col items-start justify-center">
+            <div className="swap-in flex min-h-[420px] flex-col items-start justify-center">
               <CheckCircle2 size={48} className="text-yellow" />
               <h3 className="display mt-6 text-4xl sm:text-5xl">Заявка принята!</h3>
               <p className="mt-4 max-w-md text-lg text-text/80">
@@ -243,7 +242,7 @@ export function Booking() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-yellow px-8 py-4 font-extrabold text-black transition-transform enabled:hover:-translate-y-0.5 disabled:opacity-60"
+                  className="press inline-flex items-center justify-center gap-2 rounded-full bg-yellow px-8 py-4 font-extrabold text-black enabled:hover:bg-text disabled:opacity-60"
                 >
                   {status === "sending" && <Loader2 size={18} className="animate-spin" />}
                   Отправить заявку

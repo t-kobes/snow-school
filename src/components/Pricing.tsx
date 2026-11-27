@@ -1,10 +1,39 @@
 "use client";
 
 import { Info, Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FORMATS, formatById, tenge, type FormatId, type Sport } from "@/lib/data";
 import { prefillBooking } from "@/lib/prefill";
 import { SportToggle } from "./Lessons";
+
+// Сумма «докручивается» до нового значения, чтобы было видно, что пересчиталось
+function CountUp({ value }: { value: number }) {
+  const [shown, setShown] = useState(value);
+  const from = useRef(value);
+  useEffect(() => {
+    const start = from.current;
+    if (start === value || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      from.current = value;
+      const id = requestAnimationFrame(() => setShown(value));
+      return () => cancelAnimationFrame(id);
+    }
+    const t0 = performance.now();
+    let id = 0;
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / 550);
+      const eased = 1 - Math.pow(1 - k, 4);
+      setShown(Math.round((start + (value - start) * eased) / 1000) * 1000);
+      if (k < 1) id = requestAnimationFrame(tick);
+      else from.current = value;
+    };
+    id = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(id);
+      from.current = value;
+    };
+  }, [value]);
+  return <>{tenge(shown)}</>;
+}
 
 export function Pricing() {
   const [formatId, setFormatId] = useState<FormatId>("individual");
@@ -29,8 +58,7 @@ export function Pricing() {
       <div className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
         <div className="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
-            <p className="eyebrow text-ice">Цены</p>
-            <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+            <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
               Посчитайте
               <br />
               свой урок
@@ -50,7 +78,7 @@ export function Pricing() {
                     type="button"
                     aria-pressed={formatId === f.id}
                     onClick={() => pickFormat(f.id)}
-                    className={`rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors ${
+                    className={`press rounded-full border px-4 py-2.5 text-sm font-semibold ${
                       formatId === f.id ? "border-ice bg-ice text-black" : "border-line text-text/85 hover:border-text/50"
                     }`}
                   >
@@ -70,7 +98,7 @@ export function Pricing() {
                     type="button"
                     aria-pressed={opt === o}
                     onClick={() => setOptIdx(i)}
-                    className={`rounded-2xl border px-4 py-3 text-left transition-colors ${
+                    className={`press rounded-2xl border px-4 py-3 text-left ${
                       opt === o ? "border-yellow bg-yellow/10" : "border-line hover:border-text/40"
                     }`}
                   >
@@ -117,8 +145,8 @@ export function Pricing() {
 
           <div className="flex flex-col rounded-3xl bg-yellow p-6 text-black sm:p-8">
             <p className="eyebrow">Итого</p>
-            <p className="display mt-4 text-[clamp(48px,6vw,84px)]" aria-live="polite">
-              {format.unit === "request" ? "По запросу" : tenge(total)}
+            <p className="display mt-4 text-[clamp(48px,6vw,84px)] tabular-nums" aria-live="polite">
+              {format.unit === "request" ? "По запросу" : <CountUp value={total} />}
             </p>
             <p className="mt-3 font-semibold text-black/75">
               {format.title} · {opt.label.toLowerCase()} · {sport === "ski" ? "лыжи" : "сноуборд"}
@@ -133,7 +161,7 @@ export function Pricing() {
             <button
               type="button"
               onClick={() => prefillBooking({ format: formatId, sport, people: n })}
-              className="mt-8 rounded-full bg-black py-4 font-extrabold text-yellow transition-transform hover:-translate-y-0.5 lg:mt-auto"
+              className="press mt-8 rounded-full bg-black py-4 font-extrabold text-yellow hover:bg-navy lg:mt-auto"
             >
               Записаться с этими параметрами
             </button>

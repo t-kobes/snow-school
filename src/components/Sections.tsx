@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowUpRight, Award, Backpack, Baby, Bus, Plus, ShieldCheck, Users } from "lucide-react";
-import { FAQ, PHONE, PHONE_HREF, RESORTS, TRUST, WHATSAPP } from "@/lib/data";
+import { FAQ, PHONE, PHONE_HREF, RESORTS, WHATSAPP } from "@/lib/data";
 import { Logo } from "./Logo";
 
 const SAFETY = [
@@ -16,8 +16,8 @@ export function Safety() {
   return (
     <section id="safety" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div className="reveal relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+        <div className="relative">
+          <div className="reveal-carve relative aspect-[4/5] overflow-hidden rounded-3xl">
             <Image
               src="/photos/kids-lift.jpg"
               alt="Дети в шлемах улыбаются на кресельном подъёмнике"
@@ -26,7 +26,7 @@ export function Safety() {
               className="object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 right-4 max-w-[260px] rounded-2xl bg-ice p-5 text-black shadow-2xl sm:right-[-24px]">
+          <div className="reveal absolute -bottom-6 right-4 max-w-[260px] rounded-2xl bg-ice p-5 text-black shadow-[0_24px_60px_-12px_rgb(0_0_0/0.7)] sm:right-[-24px]">
             <p className="display text-4xl">с 2005</p>
             <p className="mt-1 text-sm font-semibold">года ставим на склон взрослых и детей</p>
           </div>
@@ -34,8 +34,7 @@ export function Safety() {
 
         <div>
           <div className="reveal">
-            <p className="eyebrow text-ice">Безопасность</p>
-            <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+            <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
               Здесь
               <br />
               не страшно
@@ -45,26 +44,24 @@ export function Safety() {
               самостоятельного спуска.
             </p>
           </div>
-          <ul className="mt-10 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2">
-            {SAFETY.map(({ icon: Icon, t, d }) => (
-              <li key={t} className="reveal bg-bg p-6">
-                <Icon size={22} className="text-yellow" />
-                <p className="mt-4 font-extrabold">{t}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{d}</p>
+          <ul className="mt-10 divide-y divide-line border-y border-line">
+            {SAFETY.map(({ icon: Icon, t, d }, i) => (
+              <li
+                key={t}
+                style={{ ["--i" as string]: i }}
+                className="reveal group grid grid-cols-[auto_1fr] items-baseline gap-x-5 py-5"
+              >
+                <Icon size={22} className="translate-y-1 text-yellow transition-transform duration-500 group-hover:-rotate-12" />
+                <div className="sm:grid sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-6">
+                  <p className="text-lg font-extrabold leading-snug">{t}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted sm:mt-0.5">{d}</p>
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <dl className="reveal mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-line bg-line lg:grid-cols-4">
-        {TRUST.map((s) => (
-          <div key={s.v} className="bg-surface px-6 py-8">
-            <dt className="display text-5xl text-yellow sm:text-6xl">{s.k}</dt>
-            <dd className="mt-3 text-sm text-text/75">{s.v}</dd>
-          </div>
-        ))}
-      </dl>
     </section>
   );
 }
@@ -83,8 +80,7 @@ export function FirstDay() {
     <section id="first-day" className="mx-auto max-w-[1320px] px-4 pb-24 sm:px-6 lg:px-10 lg:pb-32">
       <div className="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div>
-          <p className="eyebrow text-yellow">Как это будет</p>
-          <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+          <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
             Ваш первый день
             <br />
             по шагам
@@ -94,7 +90,10 @@ export function FirstDay() {
       </div>
       <ol className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-6">
         {DAY.map((s, i) => (
-          <li key={s.t} className={`reveal relative p-6 ${i === DAY.length - 1 ? "bg-yellow text-black" : "bg-surface"}`}>
+          <li
+            key={s.t}
+            style={{ ["--i" as string]: i }}
+            className={`reveal relative p-6 ${i === DAY.length - 1 ? "bg-yellow text-black" : "bg-surface"}`}>
             <span className={`display text-5xl ${i === DAY.length - 1 ? "text-black/25" : "text-text/15"}`}>0{i + 1}</span>
             <p className="mt-6 font-extrabold">{s.t}</p>
             <p className={`mt-2 text-sm leading-relaxed ${i === DAY.length - 1 ? "text-black/75" : "text-muted"}`}>{s.d}</p>
@@ -110,8 +109,7 @@ export function Resorts() {
     <section id="resorts" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
       <div className="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
         <div>
-          <p className="eyebrow text-yellow">Где учимся</p>
-          <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+          <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
             4 курорта
             <br />у самого города
           </h2>
@@ -123,7 +121,11 @@ export function Resorts() {
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {RESORTS.map((r, i) => (
-          <article key={r.name} className="reveal group relative aspect-[3/4] overflow-hidden rounded-3xl border border-line">
+          <article
+            key={r.name}
+            style={{ ["--i" as string]: i }}
+            className="reveal-carve group relative aspect-[3/4] overflow-hidden rounded-3xl border border-line"
+          >
             <Image
               src={r.photo}
               alt={`Склон курорта ${r.name}`}
@@ -132,8 +134,7 @@ export function Resorts() {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-            <span className="eyebrow absolute left-5 top-5 text-[10px] text-text/80">0{i + 1}</span>
-            <span className="eyebrow absolute right-5 top-5 rounded-full bg-bg/70 px-3 py-1.5 text-[10px] backdrop-blur">
+            <span className="eyebrow absolute left-5 top-5 rounded-full bg-bg/70 px-3 py-1.5 text-[10px] backdrop-blur">
               {r.tag}
             </span>
             <div className="absolute inset-x-0 bottom-0 p-5">
@@ -161,16 +162,19 @@ export function Gallery() {
     <section id="gallery" className="border-y border-line bg-surface py-24 lg:py-32">
       <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10">
         <div className="reveal">
-          <p className="eyebrow text-ice">Как это выглядит</p>
-          <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+          <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
             Улыбки
             <br />
             вместо страха
           </h2>
         </div>
         <div className="mt-12 grid auto-rows-[180px] grid-cols-2 gap-3 sm:auto-rows-[220px] lg:grid-cols-4">
-          {GALLERY.map((g) => (
-            <figure key={g.src} className={`reveal group relative overflow-hidden rounded-2xl ${g.cls}`}>
+          {GALLERY.map((g, i) => (
+            <figure
+              key={g.src}
+              style={{ ["--i" as string]: i }}
+              className={`reveal-carve group relative overflow-hidden rounded-2xl ${g.cls}`}
+            >
               <Image
                 src={g.src}
                 alt={g.alt}
@@ -193,8 +197,7 @@ export function Faq() {
   return (
     <section id="faq" className="mx-auto grid max-w-[1320px] gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10 lg:py-32">
       <div className="reveal">
-        <p className="eyebrow text-yellow">Вопросы</p>
-        <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+        <h2 className="reveal-mask display text-[clamp(40px,6vw,80px)]">
           Спрашивают
           <br />
           чаще всего
@@ -228,11 +231,10 @@ export function Partner() {
         <Image src="/photos/panorama.webp" alt="Панорама Заилийского Алатау" fill sizes="100vw" className="object-cover opacity-40" />
         <div className="relative grid gap-8 bg-gradient-to-r from-navy via-navy/90 to-navy/40 p-8 sm:p-12 lg:grid-cols-[1.3fr_1fr] lg:items-end">
           <div>
-            <p className="eyebrow text-ice">Партнёр · Kazakhstan Travel</p>
-            <h2 className="display mt-4 text-[clamp(32px,4.5vw,60px)]">Приезжаете в Алматы?</h2>
+            <h2 className="reveal-mask display text-[clamp(32px,4.5vw,60px)]">Приезжаете в Алматы?</h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-text/85">
-              Встретим в аэропорту, поможем с трансфером и жильём, а в день без катания покажем Чарынский каньон и
-              озёра Кольсай и Каинды.
+              Наш партнёр Kazakhstan Travel встретит в аэропорту, поможет с трансфером и жильём, а в день без катания
+              покажет Чарынский каньон и озёра Кольсай и Каинды.
             </p>
           </div>
           <a

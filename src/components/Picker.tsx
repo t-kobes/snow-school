@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Loader2, MapPin, Minus, Plus, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Loader2, MapPin, Minus, Plus, RotateCcw, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { LEVELS, SPORTS, type Level, type Sport } from "@/lib/data";
 import { GOAL, WHO, type Goal, type PickInput, type PickResult, type Who } from "@/lib/pick";
@@ -27,7 +27,7 @@ function Choice<T extends string>({
             type="button"
             aria-pressed={value === k}
             onClick={() => onChange(k)}
-            className={`rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors ${
+            className={`press rounded-full border px-4 py-2.5 text-sm font-semibold ${
               value === k ? "border-yellow bg-yellow text-black" : "border-line text-text/85 hover:border-text/50"
             }`}
           >
@@ -108,10 +108,7 @@ export function Picker() {
     <section id="picker" className="border-y border-line bg-surface">
       <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
         <div className="reveal relative overflow-hidden bg-yellow px-4 py-16 text-black sm:px-6 lg:py-24 lg:pl-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))] lg:pr-10">
-          <p className="eyebrow flex items-center gap-2">
-            <Sparkles size={14} /> AI-подбор
-          </p>
-          <h2 className="display mt-5 text-[clamp(40px,5.5vw,76px)]">
+          <h2 className="reveal-mask display text-[clamp(40px,5.5vw,76px)]">
             Не знаете,
             <br />
             с чего начать?
@@ -168,7 +165,7 @@ export function Picker() {
                 type="button"
                 disabled={!ready || loading}
                 onClick={submit}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-text px-8 py-4 font-extrabold text-black transition-all enabled:hover:bg-yellow disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                className="press inline-flex w-full items-center justify-center gap-2 rounded-full bg-text px-8 py-4 font-extrabold text-black enabled:hover:bg-yellow disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
               >
                 {loading ? (
                   <>
@@ -183,8 +180,8 @@ export function Picker() {
               {error && <p className="text-sm text-red-400">{error}</p>}
             </div>
           ) : (
-            <div>
-              <p className="eyebrow flex items-center gap-2 text-ice">
+            <div className="swap-in">
+              <p className="inline-flex items-center gap-2 rounded-full bg-ice px-3 py-1.5 text-xs font-extrabold text-black">
                 <Sparkles size={14} /> {result.source === "ai" ? "Подобрано AI · Gemini" : "Подобрано по правилам школы"}
               </p>
               <h3 className="display mt-4 text-4xl sm:text-5xl">{result.title}</h3>
@@ -209,7 +206,7 @@ export function Picker() {
               <ul className="mt-5 space-y-2 text-sm text-text/75">
                 {result.tips.map((t) => (
                   <li key={t} className="flex gap-2">
-                    <span className="text-yellow">✦</span>
+                    <Check size={16} className="mt-0.5 shrink-0 text-yellow" />
                     {t}
                   </li>
                 ))}
@@ -226,7 +223,7 @@ export function Picker() {
                       comment: `Подбор: ${result.title}, ${result.resort}`,
                     })
                   }
-                  className="inline-flex items-center gap-2 rounded-full bg-yellow px-7 py-4 font-extrabold text-black transition-transform hover:-translate-y-0.5"
+                  className="press inline-flex items-center gap-2 rounded-full bg-yellow px-7 py-4 font-extrabold text-black hover:bg-text"
                 >
                   Записаться на этот урок <ArrowRight size={18} />
                 </button>
