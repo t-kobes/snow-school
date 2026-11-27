@@ -69,6 +69,42 @@ export function Safety() {
   );
 }
 
+const DAY = [
+  { t: "Заявка", d: "На сайте или в WhatsApp: даты, формат, уровень и сколько вас." },
+  { t: "Подтверждение", d: "Называем инструктора, время и место встречи на курорте." },
+  { t: "Встреча на курорте", d: "Инструктор встречает вас. Ски-пасс покупаете в кассе курорта." },
+  { t: "Прокат", d: "Вместе подбираем доску или лыжи, ботинки и шлем по размеру." },
+  { t: "Учебный склон", d: "Стойка, торможение, как безопасно упасть и встать." },
+  { t: "Первый спуск", d: "Сами, уверенно и с улыбкой — а инструктор рядом." },
+];
+
+export function FirstDay() {
+  return (
+    <section id="first-day" className="mx-auto max-w-[1320px] px-4 pb-24 sm:px-6 lg:px-10 lg:pb-32">
+      <div className="reveal flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <p className="eyebrow text-yellow">Как это будет</p>
+          <h2 className="display mt-4 text-[clamp(40px,6vw,80px)]">
+            Ваш первый день
+            <br />
+            по шагам
+          </h2>
+        </div>
+        <p className="max-w-sm text-text/75">Никаких сюрпризов: вы заранее знаете, кто встретит, где и что будет дальше.</p>
+      </div>
+      <ol className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-6">
+        {DAY.map((s, i) => (
+          <li key={s.t} className={`reveal relative p-6 ${i === DAY.length - 1 ? "bg-yellow text-black" : "bg-surface"}`}>
+            <span className={`display text-5xl ${i === DAY.length - 1 ? "text-black/25" : "text-text/15"}`}>0{i + 1}</span>
+            <p className="mt-6 font-extrabold">{s.t}</p>
+            <p className={`mt-2 text-sm leading-relaxed ${i === DAY.length - 1 ? "text-black/75" : "text-muted"}`}>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
 export function Resorts() {
   return (
     <section id="resorts" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">

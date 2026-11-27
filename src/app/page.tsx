@@ -5,7 +5,7 @@ import { Lessons } from "@/components/Lessons";
 import { Picker } from "@/components/Picker";
 import { Pricing } from "@/components/Pricing";
 import { RevealObserver } from "@/components/Reveal";
-import { Faq, Footer, Gallery, Partner, Resorts, Safety } from "@/components/Sections";
+import { Faq, FirstDay, Footer, Gallery, Partner, Resorts, Safety } from "@/components/Sections";
 
 export default function Home() {
   return (
@@ -16,6 +16,7 @@ export default function Home() {
         <Lessons />
         <Picker />
         <Safety />
+        <FirstDay />
         <Pricing />
         <Resorts />
         <Gallery />
