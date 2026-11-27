@@ -77,8 +77,6 @@ export function Booking() {
     }
   }
 
-  const [today, setToday] = useState<string>();
-  useEffect(() => setToday(new Date().toISOString().slice(0, 10)), []);
 
   return (
     <section id="booking" className="mx-auto max-w-[1320px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
@@ -157,7 +155,7 @@ export function Booking() {
                   value={form.phone}
                   onChange={(e) => set("phone", e.target.value)}
                   placeholder="+7 700 000 00 00"
-                  pattern="[+0-9\s()\-]{10,}"
+                  minLength={10}
                   className={field}
                   autoComplete="tel"
                 />
@@ -195,7 +193,7 @@ export function Booking() {
 
               <label className="block">
                 <span className="mb-2 block text-sm font-bold text-muted">Желаемая дата</span>
-                <input type="date" min={today} value={form.date} onChange={(e) => set("date", e.target.value)} className={`${field} [color-scheme:dark]`} />
+                <input type="date" onFocus={(e) => (e.currentTarget.min = new Date().toISOString().slice(0, 10))} value={form.date} onChange={(e) => set("date", e.target.value)} className={`${field} [color-scheme:dark]`} />
               </label>
               <label className="block">
                 <span className="mb-2 block text-sm font-bold text-muted">Сколько человек</span>

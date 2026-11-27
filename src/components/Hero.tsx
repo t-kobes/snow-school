@@ -31,7 +31,7 @@ export function Hero() {
             Сезон 2026/27 открыт · Шымбулак работает
           </p>
 
-          <h1 className="display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(40px,5.4vw,80px)] text-black sm:px-8 sm:py-6">
+          <h1 className="display relative z-10 w-fit bg-yellow px-5 py-5 text-[clamp(31px,5.4vw,80px)] text-black sm:px-8 sm:py-6">
             Без страха.
             <br />
             С инструктором.

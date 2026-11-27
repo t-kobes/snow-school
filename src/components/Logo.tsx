@@ -4,7 +4,7 @@ export function Logo({ className = "" }: { className?: string }) {
       <span className="display text-[22px] leading-none tracking-tight">
         Snow<span className="text-yellow">/</span>School
       </span>
-      <span className="eyebrow text-[9px] text-muted">Almaty</span>
+      <span className="eyebrow hidden text-[9px] text-muted sm:inline">Almaty</span>
     </span>
   );
 }

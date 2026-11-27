@@ -27,7 +27,7 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open ? "border-b border-line bg-bg/85 backdrop-blur-md" : "bg-transparent"
+        scrolled || open ? "border-b border-line bg-bg/85 backdrop-blur-md" : "bg-gradient-to-b from-black/60 to-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between px-4 sm:px-6 lg:px-10">
@@ -53,7 +53,7 @@ export function Header() {
           </a>
           <a
             href="#booking"
-            className="rounded-full bg-yellow px-5 py-2.5 text-sm font-extrabold text-black transition-transform hover:-translate-y-0.5"
+            className="rounded-full bg-yellow px-4 py-2.5 text-[13px] font-extrabold text-black transition-transform hover:-translate-y-0.5 sm:px-5 sm:text-sm"
           >
             Записаться
           </a>

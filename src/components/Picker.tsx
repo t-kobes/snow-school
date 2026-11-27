@@ -85,8 +85,8 @@ export function Picker() {
 
   return (
     <section id="picker" className="border-y border-line bg-surface">
-      <div className="mx-auto grid max-w-[1320px] lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="reveal relative overflow-hidden bg-yellow px-4 py-16 text-black sm:px-6 lg:px-10 lg:py-24">
+      <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="reveal relative overflow-hidden bg-yellow px-4 py-16 text-black sm:px-6 lg:py-24 lg:pl-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))] lg:pr-10">
           <p className="eyebrow flex items-center gap-2">
             <Sparkles size={14} /> AI-подбор
           </p>
@@ -104,12 +104,15 @@ export function Picker() {
             <li>· Не выдумывает цены — только реальный прайс</li>
             <li>· Результат сразу переносится в заявку</li>
           </ul>
-          <span className="display pointer-events-none absolute -bottom-6 -right-2 select-none text-[160px] leading-none text-black/[0.07]">
-            30с
+          <span className="display pointer-events-none absolute -bottom-6 -right-2 select-none text-[200px] leading-none text-black/[0.07]">
+            AI
           </span>
         </div>
 
-        <div className="reveal px-4 py-12 sm:px-6 lg:px-12 lg:py-16" aria-live="polite">
+        <div
+          className="reveal px-4 py-12 sm:px-6 lg:py-16 lg:pl-12 lg:pr-[max(2.5rem,calc((100vw-1320px)/2+2.5rem))]"
+          aria-live="polite"
+        >
           {!result ? (
             <div className="space-y-7">
               <Choice label="1. Кто будет кататься?" options={WHO} value={who} onChange={setWho} />
